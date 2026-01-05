@@ -1,4 +1,7 @@
 using api_project.Data;
+using api_project.Interfaces;
+using api_project.Repositories;
+using api_project.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +16,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IDonorRepository,DonorRepository>();
+builder.Services.AddScoped<IDonorService,DonorService>();
+
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
