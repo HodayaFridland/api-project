@@ -31,7 +31,7 @@ namespace api_project.DTO
             public int Id { get; set; }
             public string DonorName { get; set; } = string.Empty;
             public string Email { get; set; } = string.Empty;
-            public ICollection<GiftReadDTOs> Gifts { get; set; } = new List<GiftReadDTOs>();
+            public ICollection<GiftReadDTO> Gifts { get; set; } = new List<GiftReadDTO>();
         }
         
              

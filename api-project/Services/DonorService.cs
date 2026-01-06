@@ -40,7 +40,7 @@ namespace api_project.Services
                 Id = donor.Id,
                 DonorName = donor.DonorName,
                 Email = donor.Email,
-                Gifts = donor.Gifts.Select(g => new GiftReadDTOs
+                Gifts = donor.Gifts.Select(g => new GiftReadDTO
                 {
                     Id = g.Id,
                     GiftName = g.GiftName,

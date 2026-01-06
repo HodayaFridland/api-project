@@ -1,19 +1,20 @@
 ﻿using System.Drawing;
 using api_project.Data;
 using api_project.DTO;
+using api_project.Interfaces;
 using api_project.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace api_project.Repositories
 {
-    public class GiftRepository
+    public class GiftRepository : IGiftRepository
     {
         private readonly ApplicationDbContext _context;
         public GiftRepository(ApplicationDbContext context)
         {
             _context = context;
         }
-        public async Task<IEnumerable<Gifts>> GetAllGiftssAsync()
+        public async Task<IEnumerable<Gifts>> GetAllGiftsAsync()
         {
             return await _context.Gifts.ToListAsync();
         }
@@ -36,6 +37,8 @@ namespace api_project.Repositories
             await _context.SaveChangesAsync();
             return existing;
         }
+
+
         public async Task<bool> DeleteAsync(int id)
         {
             var gift = await _context.Gifts.FindAsync(id);
@@ -60,7 +63,7 @@ namespace api_project.Repositories
                 .FirstOrDefaultAsync(g => g.Id == giftId);
             return gift?.donors;
         }
-         public async Task<Gifts?> GetGiftByName(string giftName)
+        public async Task<Gifts?> GetGiftByName(string giftName)
         {
             return await _context.Gifts
                 .FirstOrDefaultAsync(g => g.GiftName == giftName);
@@ -74,10 +77,16 @@ namespace api_project.Repositories
         }
         public async Task<IEnumerable<Gifts?>> GetGiftByNumOfPurchases(int numOfPurchases)
         {
-           return await _context.Gifts
-                .Where(g => g.NumOfPurchases == numOfPurchases)
-                .ToListAsync();
+            return await _context.Gifts
+                 .Where(g => g.NumOfPurchases == numOfPurchases)
+                 .ToListAsync();
         }
-        
+        public async Task<decimal> GetPriceByGiftName(int giftId)
+        {
+            var gift = await _context.Gifts
+                .FirstOrDefaultAsync(g => g.Id == giftId);
+            return gift != null ? gift.Price : 0;
+        }
+
     }
 }
