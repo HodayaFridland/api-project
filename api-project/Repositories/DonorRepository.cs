@@ -13,7 +13,7 @@ namespace api_project.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<Donors?>> GetDonorsAsync(string? name,string? email,string? giftName)
+        public async Task<IEnumerable<Donor?>> GetDonorsAsync(string? name,string? email,string? giftName)
         {
             return await _context.Donors
                 .Include(d => d.Gifts)
@@ -26,20 +26,20 @@ namespace api_project.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Donors?> GetDonorByIdAsync(int id)
+        public async Task<Donor?> GetDonorByIdAsync(int id)
         {
             return await _context.Donors
                 .Include(d => d.Gifts)
                 .FirstOrDefaultAsync(d => d.Id == id);
         }
 
-        public async Task<Donors?> GetByEmailAsync(string email)
+        public async Task<Donor?> GetByEmailAsync(string email)
         {
             return await _context.Donors
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<Donors> CreateDonorAsync(Donors donor)
+        public async Task<Donor> CreateDonorAsync(Donor donor)
         {
             _context.Donors.Add(donor);
             await _context.SaveChangesAsync();
@@ -48,7 +48,7 @@ namespace api_project.Repositories
 
 
 
-        public async Task<Donors?> UpdateAsync(Donors donor)
+        public async Task<Donor?> UpdateAsync(Donor donor)
         {
             var existing = await _context.Donors.FindAsync(donor.Id);
             if (existing == null) return null;

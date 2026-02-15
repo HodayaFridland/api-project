@@ -5,15 +5,18 @@ namespace api_project.Interfaces
 {
     public interface IGiftRepository
     {
-        Task<Gifts> CreateGift(Gifts gift);
+        Task<Gift> CreateGift(Gift gift);
         Task<bool> DeleteAsync(int id);
-        Task<IEnumerable<Gifts>> GetAllGiftsAsync();
-        Task<Donors?> GetDonorByGiftIdAsync(int giftId);
-        Task<IEnumerable<Gifts>> GetGiftByDonorName(string donorName);
-        Task<Gifts?> GetGiftByIdAsync(int id);
-        Task<Gifts?> GetGiftByName(string giftName);
-        Task<IEnumerable<Gifts?>> GetGiftByNumOfPurchases(int numOfPurchases);
+        Task<IEnumerable<Gift>> GetAllGiftsAsync();
+        Task<Donor?> GetDonorByGiftIdAsync(int giftId);
+        Task<IEnumerable<Gift>> GetGiftByDonorName(string donorName);
+       Task<IEnumerable<Gift>> GetGiftsWhithOutWhiners();
+        Task<Gift?> GetGiftByIdAsync(int id);
+        Task<Gift?> GetGiftByName(string giftName);
+        Task<IEnumerable<Gift?>> GetGiftByNumOfPurchases(int numOfPurchases);
         Task<decimal> GetPriceByGiftName(int giftId);
-        Task<Gifts?> UpdateAsync(Gifts gift);
+        Task<Gift?> UpdateAsync(Gift gift);
+        Task SaveChangesAsync();
+      
     }
 }

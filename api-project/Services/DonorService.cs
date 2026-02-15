@@ -55,7 +55,7 @@ namespace api_project.Services
             {
                 throw new ArgumentException($"Email {DonorCreateDTO.Email} is already registered.");
             }
-            var donor = new Donors
+            var donor = new Donor
             {
                 DonorName = DonorCreateDTO.DonorName,
                 Email = DonorCreateDTO.Email

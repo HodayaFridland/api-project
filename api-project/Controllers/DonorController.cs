@@ -1,12 +1,13 @@
 ﻿using api_project.DTO;
 using api_project.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_project.Controllers
 {
-
+    [Authorize(Roles = "Admin")]
     [ApiController]
-    [Route("api/donor/[controller]")]
+    [Route("api/[controller]")]
     public class DonorController : ControllerBase
     {
         private readonly IDonorService _donorService;
@@ -38,8 +39,10 @@ namespace api_project.Controllers
         public async Task<ActionResult<DonorReadDTO>> CreateDonorAsync(DonorCreateDTO donorCreateDTO)
         {
             var createdDonor = await _donorService.CreateDonorAsync(donorCreateDTO);
-            return CreatedAtAction(nameof(GetDonorByIdAsync), new { id = createdDonor.Id }, createdDonor);
-            //return Ok(createdDonor);
+
+            // במקום CreatedAtAction, נשתמש ב-Created ונעביר נתיב ידני או פשוט נחזיר Ok
+            // return Created($"/api/donors/{createdDonor.Id}", createdDonor);
+            return Ok(createdDonor);
         }
 
         [HttpPut("{id}")]
